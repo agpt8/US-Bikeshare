@@ -1,5 +1,6 @@
 import time
 from datetime import datetime, timedelta
+
 import pandas as pd
 
 
@@ -11,16 +12,23 @@ def get_city():
         (str) Filename for a city's bikeshare data.
     '''
     city = ''
+    dataset = ''
     while city.lower() not in ['chicago', 'new york', 'washington']:
-        city = input('\nHi there! Let\'s explore some US bikeshare data!\nWhich city would you like to see data for? Chicago, New York, or Washington?\n').lower()
-        if city == 'chicago':
-            return './data/chicago.csv'
-        if city == 'new york':
-            return './data/new_york_city.csv'
-        if city == 'washington':
-            return './data/washington.csv'
-        else:
-            print('Oops! I didn\'t get that. Please input either Chicago, New York, or Washington.')
+        city = input(
+            '\nHi there! Let\'s explore some US bikeshare data!\nWhich city would you like to see data for? Chicago, New York, or Washington?\n').lower()
+        return get_dataset(city, dataset)
+
+
+def get_dataset(city, dataset):
+    if city == 'chicago':
+        dataset = './data/chicago.csv'
+    if city == 'new york':
+        dataset = './data/new_york_city.csv'
+    if city == 'washington':
+        dataset = './data/washington.csv'
+    if city.lower() not in ['chicago', 'new york', 'washington']:
+        print('Oops! I didn\'t get that. Please input either Chicago, New York, or Washington.')
+    return dataset
 
 
 def get_time_period():
@@ -32,7 +40,8 @@ def get_time_period():
     '''
     time_period = ''
     while time_period.lower() not in ['month', 'day', 'none']:
-        time_period = input('\nHow would you like to filter the data? By month, day, or without any filter? Type "none" to see the data without any time filter.\n').lower()
+        time_period = input(
+            '\nHow would you like to filter the data? By month, day, or without any filter? Type "none" to see the data without any time filter.\n').lower()
         if time_period not in ['month', 'day', 'none']:
             print('Oops! I didn\'t get that.')
     return time_period
@@ -52,7 +61,8 @@ def get_month():
         month_input = input(
             '\nWhich month? January, February, March, April, May, or June?\n').lower()
         if month_input not in months_dict.keys():
-            print('Oops! I didn\'t get that. Please type in a month between January and June')
+            print(
+                'Oops! I didn\'t get that. Please type in a month between January and June')
     month = months_dict[month_input.lower()]
     return ('2017-{}'.format(month), '2017-{}'.format(month + 1))
 
@@ -75,7 +85,8 @@ def get_day():
                 day = int(day)
                 is_int = True
             except ValueError:
-                print('Oops! I didn\'t get that. Please type your response as an integer.')
+                print(
+                    'Oops! I didn\'t get that. Please type your response as an integer.')
                 day = input(
                     '\nWhich day? Please type your response as an integer.\n')
         try:
@@ -147,12 +158,14 @@ def total_trip_duration(df):
     total_duration = df['trip_duration'].sum()
     minute, second = divmod(total_duration, 60)
     hour, minute = divmod(minute, 60)
-    print('The total trip duration is {} hours, {} minutes and {} seconds.'.format(hour, minute, second))
+    print('The total trip duration is {} hours, {} minutes and {} seconds.'.format(
+        hour, minute, second))
     average_duration = round(df['trip_duration'].mean())
     m, s = divmod(average_duration, 60)
     if m > 60:
         h, m = divmod(m, 60)
-        print('The average trip duration is {} hours, {} minutes and {} seconds.'.format(h, m, s))
+        print('The average trip duration is {} hours, {} minutes and {} seconds.'.format(
+            h, m, s))
     else:
         print('The average trip duration is {} minutes and {} seconds.'.format(
             m, s))
@@ -218,7 +231,8 @@ def get_birth_years(df):
     earliest = int(df['birth_year'].min())
     latest = int(df['birth_year'].max())
     mode = int(df['birth_year'].mode())
-    print('The oldest users are born in {}.\nThe youngest users are born in {}.\nThe most popular birth year is {}.'.format(earliest, latest, mode))
+    print('The oldest users are born in {}.\nThe youngest users are born in {}.\nThe most popular birth year is {}.'.format(
+        earliest, latest, mode))
 
 
 def display_data(df):
@@ -236,7 +250,8 @@ def display_data(df):
     tail = 5
     valid_input = False
     while valid_input == False:
-        display = input('\nWould you like to view individual trip data? Type \'yes\' or \'no\'.\n').lower()
+        display = input(
+            '\nWould you like to view individual trip data? Type \'yes\' or \'no\'.\n').lower()
         valid_input = is_valid(display)
         if valid_input == True:
             break
@@ -249,7 +264,8 @@ def display_data(df):
         while display_more.lower() != 'no':
             valid_input_2 = False
             while valid_input_2 == False:
-                display_more = input('\nWould you like to view more individual trip data? Type \'yes\' or \'no\'.\n')
+                display_more = input(
+                    '\nWould you like to view more individual trip data? Type \'yes\' or \'no\'.\n')
                 valid_input_2 = is_valid(display_more)
                 if valid_input_2 == True:
                     break
@@ -275,7 +291,7 @@ def get_statistics():
     city = get_city()
     print('Loading data...')
     df = pd.read_csv(city, parse_dates=['Start Time', 'End Time'])
-    df.dropna(inplace = True)
+    df.dropna(inplace=True)
 
     # change all column names to lowercase letters and replace spaces with underscores
     new_labels = []
@@ -301,7 +317,8 @@ def get_statistics():
         elif time_period == 'day':
             filter_lower, filter_upper = get_day()
         print('Filtering data...')
-        df_filtered = df[(df['start_time'] >= filter_lower) & (df['start_time'] < filter_upper)]
+        df_filtered = df[(df['start_time'] >= filter_lower) &
+                         (df['start_time'] < filter_upper)]
     print('\nCalculating the first statistic...')
 
     if time_period == 'none':
@@ -325,31 +342,36 @@ def get_statistics():
 
     # What is the most popular hour of day for start time?
     most_popular_hour(df_filtered)
-    print("This took %s around seconds to calculate." % (time.time() - start_time))
+    print("This took %s around seconds to calculate." %
+          (time.time() - start_time))
     print("\nCalculating the next statistic...")
     start_time = time.time()
 
     # What is the total trip duration and average trip duration?
     total_trip_duration(df_filtered)
-    print("This took %s around seconds to calculate." % (time.time() - start_time))
+    print("This took %s around seconds to calculate." %
+          (time.time() - start_time))
     print("\nCalculating the next statistic...")
     start_time = time.time()
 
     # What is the most popular start station and most popular end station?
     most_popular_stations(df_filtered)
-    print("This took %s around seconds to calculate." % (time.time() - start_time))
+    print("This took %s around seconds to calculate." %
+          (time.time() - start_time))
     print("\nCalculating the next statistic...")
     start_time = time.time()
 
     # What is the most popular trip?
     most_popular_trip(df_filtered)
-    print("This took %s around seconds to calculate." % (time.time() - start_time))
+    print("This took %s around seconds to calculate." %
+          (time.time() - start_time))
     print("\nCalculating the next statistic...")
     start_time = time.time()
 
     # What are the counts of each user type?
     get_users(df_filtered)
-    print("This took %s around seconds to calculate." % (time.time() - start_time))
+    print("This took %s around seconds to calculate." %
+          (time.time() - start_time))
 
     if city in ['chicago.csv', 'new_york_city.csv']:
         print("\nCalculating the next statistic...")
