@@ -165,10 +165,8 @@ def most_popular_stations(df):
     Returns:
         none
     '''
-    pop_start = df['start_station'].mode().to_string(index=False)
-    pop_end = df['end_station'].mode().to_string(index=False)
-    # pop_start = df['start_station'].value_counts().idxmax()
-    # pop_end = df['end_station'].value_counts().idxmax()
+    pop_start = df['start_station'].value_counts().idxmax()
+    pop_end = df['end_station'].value_counts().idxmax()
     print('The most popular start station is {}.'.format(pop_start))
     print('The most popular end station is {}.'.format(pop_end))
 
