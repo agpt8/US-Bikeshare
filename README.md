@@ -116,3 +116,7 @@ If you find any issues with the script or any general issue, kindly file them on
 ## Contributions
 
 If you would like to contribute or want to make any changes, you can submit a [Pull Request](https://github.com/agpt8/US-Bikeshare/pulls) and I will make sure to follow up.
+
+## Licence
+
+This repo is uses [Apache Licence 2.0](https://choosealicense.com/licenses/apache-2.0/)
