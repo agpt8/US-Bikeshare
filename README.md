@@ -61,7 +61,7 @@ Currently, the following new features are being considered:
 
 - More custom filters
 - A GUI: This can make the script much more user friendly.
-- Convertion to a web based application.
+- Conversion to a web based application.
 
 ## Resources referred to complete this project
 
