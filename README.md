@@ -119,4 +119,4 @@ If you would like to contribute or want to make any changes, you can submit a [P
 
 ## Licence
 
-This repo is uses [Apache Licence 2.0](https://choosealicense.com/licenses/apache-2.0/)
+This repo is shared under [Apache Licence 2.0](https://choosealicense.com/licenses/apache-2.0/)
